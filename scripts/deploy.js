@@ -6,7 +6,7 @@ async function main() {
   console.log("使用账户部署:", deployer.address);
 
   const balance = await deployer.provider.getBalance(deployer.address);
-  console.log("账户余额:", ethers.formatEther(balance), "ETH");
+  console.log("账户余额:", ethers.formatEther(balance), "MON");
 
   // 1. 部署游戏代币合约
   console.log("\n1. 部署游戏代币合约...");

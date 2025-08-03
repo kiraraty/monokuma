@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useWeb3 } from '../contexts/Web3Context';
 import { Sword, Heart, ShoppingCart, Trophy, Zap, Star, Users, Coins } from 'lucide-react';
@@ -78,30 +78,30 @@ const Home = () => {
   return (
     <div className="space-y-12">
       {/* Hero Section */}
-      <section className="text-center py-16">
+      <section className="py-16 text-center">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+          <h1 className="mb-6 text-5xl font-bold text-transparent md:text-7xl bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text">
             Battle Pets
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+          <p className="max-w-3xl mx-auto mb-8 text-xl text-gray-300 md:text-2xl">
             基于区块链的宠物对战游戏，收集、训练、对战你的NFT宠物，争夺排行榜荣耀！
           </p>
-          
+
           {isConnected ? (
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/pets" className="btn-primary text-lg px-8 py-4">
+            <div className="flex flex-col justify-center gap-4 sm:flex-row">
+              <Link to="/pets" className="px-8 py-4 text-lg btn-primary">
                 <Heart className="w-5 h-5 mr-2" />
                 查看我的宠物
               </Link>
-              <Link to="/battle" className="btn-secondary text-lg px-8 py-4">
+              <Link to="/battle" className="px-8 py-4 text-lg btn-secondary">
                 <Sword className="w-5 h-5 mr-2" />
                 开始对战
               </Link>
             </div>
           ) : (
             <div className="text-center">
-              <p className="text-gray-400 mb-4">连接钱包开始游戏</p>
-              <Link to="/pets" className="btn-primary text-lg px-8 py-4">
+              <p className="mb-4 text-gray-400">连接钱包开始游戏</p>
+              <Link to="/pets" className="px-8 py-4 text-lg btn-primary">
                 <Heart className="w-5 h-5 mr-2" />
                 开始冒险
               </Link>
@@ -113,19 +113,19 @@ const Home = () => {
       {/* User Stats */}
       {isConnected && (
         <section className="card">
-          <h2 className="text-2xl font-bold mb-6 text-center">我的数据</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="text-center p-4 bg-white/5 rounded-lg">
+          <h2 className="mb-6 text-2xl font-bold text-center">我的数据</h2>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            <div className="p-4 text-center rounded-lg bg-white/5">
               <Coins className="w-8 h-8 mx-auto mb-2 text-yellow-400" />
               <div className="text-2xl font-bold text-yellow-400">{tokenBalance}</div>
               <div className="text-gray-400">游戏代币</div>
             </div>
-            <div className="text-center p-4 bg-white/5 rounded-lg">
+            <div className="p-4 text-center rounded-lg bg-white/5">
               <Heart className="w-8 h-8 mx-auto mb-2 text-pink-400" />
               <div className="text-2xl font-bold text-pink-400">{petCount}</div>
               <div className="text-gray-400">拥有宠物</div>
             </div>
-            <div className="text-center p-4 bg-white/5 rounded-lg">
+            <div className="p-4 text-center rounded-lg bg-white/5">
               <Star className="w-8 h-8 mx-auto mb-2 text-purple-400" />
               <div className="text-2xl font-bold text-purple-400">0</div>
               <div className="text-gray-400">战斗积分</div>
@@ -136,16 +136,16 @@ const Home = () => {
 
       {/* Features */}
       <section>
-        <h2 className="text-3xl font-bold text-center mb-12">游戏特色</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <h2 className="mb-12 text-3xl font-bold text-center">游戏特色</h2>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
-              <div key={index} className="card text-center group hover:scale-105 transition-transform duration-300">
+              <div key={index} className="text-center transition-transform duration-300 card group hover:scale-105">
                 <div className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r ${feature.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
                   <Icon className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
+                <h3 className="mb-3 text-xl font-bold">{feature.title}</h3>
                 <p className="text-gray-400">{feature.description}</p>
               </div>
             );
@@ -155,14 +155,14 @@ const Home = () => {
 
       {/* Stats */}
       <section className="card">
-        <h2 className="text-3xl font-bold text-center mb-12">游戏数据</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <h2 className="mb-12 text-3xl font-bold text-center">游戏数据</h2>
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           {stats.map((stat, index) => {
             const Icon = stat.icon;
             return (
               <div key={index} className="text-center">
                 <Icon className="w-12 h-12 mx-auto mb-4 text-blue-400" />
-                <div className="text-3xl font-bold text-blue-400 mb-2">{stat.value}</div>
+                <div className="mb-2 text-3xl font-bold text-blue-400">{stat.value}</div>
                 <div className="text-gray-400">{stat.label}</div>
               </div>
             );
@@ -172,30 +172,30 @@ const Home = () => {
 
       {/* Quick Actions */}
       <section className="card">
-        <h2 className="text-3xl font-bold text-center mb-8">快速操作</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Link to="/pets" className="pet-card text-center group">
-            <Heart className="w-12 h-12 mx-auto mb-4 text-pink-400 group-hover:scale-110 transition-transform duration-300" />
-            <h3 className="text-lg font-bold mb-2">我的宠物</h3>
-            <p className="text-gray-400 text-sm">查看和管理你的宠物</p>
+        <h2 className="mb-8 text-3xl font-bold text-center">快速操作</h2>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <Link to="/pets" className="text-center pet-card group">
+            <Heart className="w-12 h-12 mx-auto mb-4 text-pink-400 transition-transform duration-300 group-hover:scale-110" />
+            <h3 className="mb-2 text-lg font-bold">我的宠物</h3>
+            <p className="text-sm text-gray-400">查看和管理你的宠物</p>
           </Link>
-          
-          <Link to="/battle" className="pet-card text-center group">
-            <Sword className="w-12 h-12 mx-auto mb-4 text-red-400 group-hover:scale-110 transition-transform duration-300" />
-            <h3 className="text-lg font-bold mb-2">开始对战</h3>
-            <p className="text-gray-400 text-sm">与其他玩家战斗</p>
+
+          <Link to="/battle" className="text-center pet-card group">
+            <Sword className="w-12 h-12 mx-auto mb-4 text-red-400 transition-transform duration-300 group-hover:scale-110" />
+            <h3 className="mb-2 text-lg font-bold">开始对战</h3>
+            <p className="text-sm text-gray-400">与其他玩家战斗</p>
           </Link>
-          
-          <Link to="/marketplace" className="pet-card text-center group">
-            <ShoppingCart className="w-12 h-12 mx-auto mb-4 text-green-400 group-hover:scale-110 transition-transform duration-300" />
-            <h3 className="text-lg font-bold mb-2">交易市场</h3>
-            <p className="text-gray-400 text-sm">买卖宠物和道具</p>
+
+          <Link to="/marketplace" className="text-center pet-card group">
+            <ShoppingCart className="w-12 h-12 mx-auto mb-4 text-green-400 transition-transform duration-300 group-hover:scale-110" />
+            <h3 className="mb-2 text-lg font-bold">交易市场</h3>
+            <p className="text-sm text-gray-400">买卖宠物和道具</p>
           </Link>
-          
-          <Link to="/leaderboard" className="pet-card text-center group">
-            <Trophy className="w-12 h-12 mx-auto mb-4 text-yellow-400 group-hover:scale-110 transition-transform duration-300" />
-            <h3 className="text-lg font-bold mb-2">排行榜</h3>
-            <p className="text-gray-400 text-sm">查看赛季排名</p>
+
+          <Link to="/leaderboard" className="text-center pet-card group">
+            <Trophy className="w-12 h-12 mx-auto mb-4 text-yellow-400 transition-transform duration-300 group-hover:scale-110" />
+            <h3 className="mb-2 text-lg font-bold">排行榜</h3>
+            <p className="text-sm text-gray-400">查看赛季排名</p>
           </Link>
         </div>
       </section>

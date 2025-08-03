@@ -5,7 +5,8 @@ async function main() {
 
   const [deployer] = await ethers.getSigners();
   console.log("部署账户:", deployer.address);
-  console.log("账户余额:", ethers.formatEther(await deployer.getBalance()), "ETH");
+  // 合约部署 —— Monad链，消耗原生代币（MON）
+  console.log("账户余额:", ethers.formatEther(await deployer.getBalance()), "MON");
 
   try {
     // 1. 编译合约
@@ -42,9 +43,7 @@ async function main() {
   }
 }
 
-main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  }); 
+main().then(() => process.exit(0)).catch((error) => {
+  console.error(error);
+  process.exit(1);
+});
