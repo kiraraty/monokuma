@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import GameTokenArtifact from "../artifacts/contracts/GameToken.sol/GameToken.json";
 import BattlePetsNFTArtifact from "../artifacts/contracts/BattlePetsNFT.sol/BattlePetsNFT.json";
@@ -36,27 +36,27 @@ export const Web3Provider = ({ children }) => {
   const connectWallet = async () => {
     try {
       setIsLoading(true);
-      
+
       if (typeof window.ethereum !== 'undefined') {
         // 请求连接钱包
         const accounts = await window.ethereum.request({
           method: 'eth_requestAccounts',
         });
-        
+
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
-        
+
         setProvider(provider);
         setSigner(signer);
         setAccount(accounts[0]);
         setIsConnected(true);
-        
+
         // 初始化合约
         await initializeContracts(signer);
-        
+
         // 监听账户变化
         window.ethereum.on('accountsChanged', handleAccountsChanged);
-        
+
         console.log('钱包连接成功:', accounts[0]);
       } else {
         alert('请安装MetaMask钱包');
@@ -90,7 +90,7 @@ export const Web3Provider = ({ children }) => {
     setAccount(null);
     setContracts({});
     setIsConnected(false);
-    
+
     if (window.ethereum) {
       window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
     }
@@ -104,31 +104,31 @@ export const Web3Provider = ({ children }) => {
         GameTokenArtifact.abi,
         signer
       );
-  
+
       const battlePetsNFT = new ethers.Contract(
         CONTRACT_ADDRESSES.battlePetsNFT,
         BattlePetsNFTArtifact.abi,
         signer
       );
-  
+
       const battleSystem = new ethers.Contract(
         CONTRACT_ADDRESSES.battleSystem,
         BattleSystemArtifact.abi,
         signer
       );
-  
+
       const marketplace = new ethers.Contract(
         CONTRACT_ADDRESSES.marketplace,
         MarketplaceArtifact.abi,
         signer
       );
-  
+
       const leaderboard = new ethers.Contract(
         CONTRACT_ADDRESSES.leaderboard,
         LeaderboardArtifact.abi,
         signer
       );
-  
+
       setContracts({
         gameToken,
         battlePetsNFT,
@@ -148,23 +148,23 @@ export const Web3Provider = ({ children }) => {
         const accounts = await window.ethereum.request({
           method: 'eth_accounts',
         });
-        
+
         if (accounts.length > 0) {
           const provider = new ethers.BrowserProvider(window.ethereum);
           const signer = await provider.getSigner();
-          
+
           setProvider(provider);
           setSigner(signer);
           setAccount(accounts[0]);
           setIsConnected(true);
-          
+
           await initializeContracts(signer);
-          
+
           window.ethereum.on('accountsChanged', handleAccountsChanged);
         }
       }
     };
-    
+
     checkConnection();
   }, []);
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useWeb3 } from '../contexts/Web3Context';
 import { Heart, Zap, Star, Sword, Shield, Zap as Speed, Droplets } from 'lucide-react';
 
@@ -11,12 +11,12 @@ const Pets = () => {
   // 获取用户宠物
   const fetchPets = async () => {
     if (!isConnected || !contracts.battlePetsNFT) return;
-    
+
     try {
       setLoading(true);
       const balance = await contracts.battlePetsNFT.balanceOf(account);
       const petList = [];
-      
+
       for (let i = 0; i < balance; i++) {
         const tokenId = await contracts.battlePetsNFT.tokenOfOwnerByIndex(account, i);
         const petData = await contracts.battlePetsNFT.getPet(tokenId);
@@ -25,7 +25,7 @@ const Pets = () => {
           ...petData
         });
       }
-      
+
       setPets(petList);
     } catch (error) {
       console.error('获取宠物失败:', error);
@@ -37,7 +37,7 @@ const Pets = () => {
   // 铸造宠物
   const mintPet = async () => {
     if (!contracts.battlePetsNFT) return;
-    
+
     try {
       setLoading(true);
       const tx = await contracts.battlePetsNFT.mintPet();
@@ -55,7 +55,7 @@ const Pets = () => {
   // 训练宠物
   const trainPet = async (tokenId) => {
     if (!contracts.battlePetsNFT) return;
-    
+
     try {
       setLoading(true);
       const tx = await contracts.battlePetsNFT.trainPet(tokenId);
@@ -73,7 +73,7 @@ const Pets = () => {
   // 升级宠物
   const upgradePet = async (tokenId) => {
     if (!contracts.battlePetsNFT) return;
-    
+
     try {
       setLoading(true);
       const tx = await contracts.battlePetsNFT.upgradePet(tokenId);
@@ -116,9 +116,9 @@ const Pets = () => {
 
   if (!isConnected) {
     return (
-      <div className="text-center py-12">
+      <div className="py-12 text-center">
         <Heart className="w-16 h-16 mx-auto mb-4 text-gray-400" />
-        <h2 className="text-2xl font-bold mb-4">请先连接钱包</h2>
+        <h2 className="mb-4 text-2xl font-bold">请先连接钱包</h2>
         <p className="text-gray-400">连接钱包后查看你的宠物</p>
       </div>
     );
@@ -127,7 +127,7 @@ const Pets = () => {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">我的宠物</h1>
         <button
           onClick={mintPet}
@@ -149,7 +149,7 @@ const Pets = () => {
             </div>
           </div>
           {pets.length >= 5 && (
-            <div className="text-yellow-400 text-sm">
+            <div className="text-sm text-yellow-400">
               已达到最大宠物数量限制
             </div>
           )}
@@ -158,25 +158,25 @@ const Pets = () => {
 
       {/* Pets Grid */}
       {loading ? (
-        <div className="text-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
+        <div className="py-12 text-center">
+          <div className="w-12 h-12 mx-auto border-b-2 border-blue-500 rounded-full animate-spin"></div>
           <p className="mt-4 text-gray-400">加载中...</p>
         </div>
       ) : pets.length === 0 ? (
-        <div className="text-center py-12">
+        <div className="py-12 text-center">
           <Heart className="w-16 h-16 mx-auto mb-4 text-gray-400" />
-          <h2 className="text-2xl font-bold mb-4">还没有宠物</h2>
-          <p className="text-gray-400 mb-6">铸造你的第一个宠物开始冒险吧！</p>
+          <h2 className="mb-4 text-2xl font-bold">还没有宠物</h2>
+          <p className="mb-6 text-gray-400">铸造你的第一个宠物开始冒险吧！</p>
           <button onClick={mintPet} className="btn-primary">
             铸造宠物
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {pets.map((pet) => (
             <div key={pet.tokenId} className="pet-card">
               {/* Pet Header */}
-              <div className="flex justify-between items-start mb-4">
+              <div className="flex items-start justify-between mb-4">
                 <div>
                   <h3 className="text-lg font-bold">宠物 #{pet.tokenId}</h3>
                   <div className={`flex items-center space-x-1 ${getRarityColor(pet.rarity)}`}>
@@ -191,7 +191,7 @@ const Pets = () => {
               </div>
 
               {/* Pet Stats */}
-              <div className="space-y-3 mb-6">
+              <div className="mb-6 space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
                     <Sword className="w-4 h-4 text-red-400" />
@@ -225,12 +225,12 @@ const Pets = () => {
               {/* Skills */}
               {pet.skills.length > 0 && (
                 <div className="mb-6">
-                  <div className="text-sm font-bold mb-2">技能</div>
+                  <div className="mb-2 text-sm font-bold">技能</div>
                   <div className="flex flex-wrap gap-2">
                     {pet.skills.map((skill, index) => (
                       <span
                         key={index}
-                        className="px-2 py-1 bg-purple-500/20 text-purple-300 text-xs rounded"
+                        className="px-2 py-1 text-xs text-purple-300 rounded bg-purple-500/20"
                       >
                         技能 {skill}
                       </span>
@@ -244,7 +244,7 @@ const Pets = () => {
                 <button
                   onClick={() => trainPet(pet.tokenId)}
                   disabled={loading}
-                  className="flex-1 btn-secondary text-sm disabled:opacity-50"
+                  className="flex-1 text-sm btn-secondary disabled:opacity-50"
                 >
                   <Zap className="w-4 h-4 mr-1" />
                   训练
@@ -252,7 +252,7 @@ const Pets = () => {
                 <button
                   onClick={() => upgradePet(pet.tokenId)}
                   disabled={loading || pet.level >= 100}
-                  className="flex-1 btn-primary text-sm disabled:opacity-50"
+                  className="flex-1 text-sm btn-primary disabled:opacity-50"
                 >
                   <Star className="w-4 h-4 mr-1" />
                   升级
