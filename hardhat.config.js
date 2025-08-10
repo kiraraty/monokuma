@@ -1,9 +1,6 @@
 require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config();
 
-// 部署者私钥
-const PRIVATE_KEY = process.env.PRIVATE_KEY || "";
-
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: {
@@ -18,8 +15,8 @@ module.exports = {
   networks: {
     'monad-testnet': {
       url: process.env.MONAD_RPC_URL,
-      chainId: process.env.MONAD_RPC_URL,
-      accounts: [PRIVATE_KEY]
+      chainId: process.env.MONAD_CHAIN_ID,
+      accounts: [process.env.PRIVATE_KEY]
     }
   },
   paths: {

@@ -1,6 +1,6 @@
 {
   "name": "battle-pets-game",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Web3宠物对战游戏",
   "main": "index.js",
   "scripts": {
